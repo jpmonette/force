@@ -12,6 +12,13 @@ force is a Go client library for accessing the [Salesforce API](https://develope
 import "github.com/jpmonette/force"
 ```
 
+Construct a new Force client, then use the various services on the client to access different parts of the Salesforce API. For example, to retrieve query performance feedback:
+
+```go
+  c, _ := force.NewClient(client, "http://emea.salesforce.com/")
+  explain, err := c.QueryExplain("SELECT Id, Name, OwnerId FROM Account LIMIT 10")
+```
+
 ### Authentication
 
 The force library does not directly handle authentication.  Instead, when

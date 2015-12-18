@@ -2,10 +2,7 @@
 package force
 
 import (
-	"encoding/json"
 	"fmt"
-	"io"
-	"io/ioutil"
 	"net/url"
 )
 
@@ -20,20 +17,10 @@ func (c *Client) Query(query string, v interface{}) (err error) {
 		return
 	}
 
-	resp, err := c.client.Do(req)
+	err = c.Do(req, &v)
 
 	if err != nil {
 		return
-	}
-
-	defer resp.Body.Close()
-
-	if v != nil {
-		if w, ok := v.(io.Writer); ok {
-			io.Copy(w, resp.Body)
-		} else {
-			err = json.NewDecoder(resp.Body).Decode(v)
-		}
 	}
 
 	return
@@ -50,21 +37,7 @@ func (c *Client) QueryExplain(query string) (explain QueryExplainResponse, err e
 		return
 	}
 
-	resp, err := c.client.Do(req)
-
-	if err != nil {
-		return
-	}
-
-	defer resp.Body.Close()
-
-	body, err := ioutil.ReadAll(resp.Body)
-
-	if err != nil {
-		return
-	}
-
-	err = json.Unmarshal(body, &explain)
+	err = c.Do(req, &explain)
 
 	if err != nil {
 		return

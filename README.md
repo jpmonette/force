@@ -14,9 +14,9 @@ import "github.com/jpmonette/force"
 
 The force library does not directly handle authentication.  Instead, when
 creating a new client, pass an `http.Client` that can handle authentication for
-you.  The easiest and recommended way to do this is using the [oauth2][]
-library, but you can always use any other library that provides an
-`http.Client`.
+you.  The easiest and recommended way to do this is using the
+[oauth2](https://godoc.org/golang.org/x/oauth2) library, but you can always use
+any other library that provides an `http.Client`.
 
 
 ## Roadmap

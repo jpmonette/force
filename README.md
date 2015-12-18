@@ -2,6 +2,8 @@
 
 force is a Go client library for accessing the [Salesforce API](https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/).
 
+[![Build Status](https://travis-ci.org/jpmonette/force.svg)](https://travis-ci.org/jpmonette/force)
+
 **Documentation:** [![GoDoc](https://godoc.org/github.com/jpmonette/force?status.svg)](https://godoc.org/github.com/jpmonette/force)  
 
 ## Usage

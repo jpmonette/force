@@ -1,6 +1,6 @@
 # force
 
-force is a Go client library for accessing the [Salesforce API][].
+force is a Go client library for accessing the [Salesforce API](https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/).
 
 **Documentation:** [![GoDoc](https://godoc.org/github.com/jpmonette/force?status.svg)](https://godoc.org/github.com/jpmonette/force)  
 

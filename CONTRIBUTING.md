@@ -47,5 +47,5 @@ a just a few small guidelines you need to follow.
 
 Currently, everything is defined in the main `force` package, with API methods
 broken into separate service objects.  These services map directly to how
-the [Salesforce API documentation][] is organized, so use that as your guide for
-where to put new methods.
+the [Salesforce API documentation](https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/)
+is organized, so use that as your guide for where to put new methods.

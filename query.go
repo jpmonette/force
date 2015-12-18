@@ -26,6 +26,8 @@ func (c *Client) Query(query string, v interface{}) (err error) {
 		return
 	}
 
+	defer resp.Body.Close()
+
 	if v != nil {
 		if w, ok := v.(io.Writer); ok {
 			io.Copy(w, resp.Body)

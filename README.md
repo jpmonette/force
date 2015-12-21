@@ -3,8 +3,11 @@
 force is a Go client library for accessing the [Salesforce API](https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/).
 
 **Documentation:** [![GoDoc](https://godoc.org/github.com/jpmonette/force?status.svg)](https://godoc.org/github.com/jpmonette/force)  
-**Build Status:** [![TravisCI Build Status](https://travis-ci.org/jpmonette/force.svg)](https://travis-ci.org/jpmonette/force) [![CircleCI Build Status](https://circleci.com/gh/jpmonette/force.png?style=shield&circle-token=:circle-token)](https://circleci.com/gh/jpmonette/force) 
+
+**Build Status:** [![TravisCI Build Status](https://travis-ci.org/jpmonette/force.svg)](https://travis-ci.org/jpmonette/force) [![CircleCI Build Status](https://circleci.com/gh/jpmonette/force.png?style=shield&circle-token=:circle-token)](https://circleci.com/gh/jpmonette/force)
+
 **Code Coverage:** [![Coverage Status](https://coveralls.io/repos/jpmonette/force/badge.svg?branch=master&service=github)](https://coveralls.io/github/jpmonette/force?branch=master)
+
 > ***WARNING:*** Both the documentation and the package itself is under heavy
 > development and in a very early stage. That means, this repo is full of
 > untested code and the API can break without any further notice. Therefore,

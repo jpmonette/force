@@ -6,6 +6,12 @@ force is a Go client library for accessing the [Salesforce API](https://develope
 
 **Documentation:** [![GoDoc](https://godoc.org/github.com/jpmonette/force?status.svg)](https://godoc.org/github.com/jpmonette/force)  
 
+> ***WARNING:*** Both the documentation and the package itself is under heavy
+> development and in a very early stage. That means, this repo is full of
+> untested code and the API can break without any further notice. Therefore,
+> it comes with absolutely no warranty at all. Feel free to browse or even
+> contribute to it :)
+
 ## Usage
 
 ```go

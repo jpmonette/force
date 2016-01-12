@@ -27,6 +27,9 @@ type Client struct {
 
 	// User agent used when communicating.
 	UserAgent string
+
+	// Services used for talking to different parts of the Salesforce API.
+	Tooling *ToolingService
 }
 
 // NewClient returns a new Salesforce API client. If a nil httpClient is
@@ -45,6 +48,7 @@ func NewClient(httpClient *http.Client, instanceUrl string) (*Client, error) {
 	}
 
 	c := &Client{client: httpClient, BaseURL: baseURL}
+	c.Tooling = &ToolingService{client: c}
 
 	return c, nil
 }

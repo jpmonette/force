@@ -118,3 +118,10 @@ func (c *ToolingService) RunTests(classnames []string) (result RunTestsResult, e
 	err = c.client.Do(req, &result)
 	return
 }
+
+// Search is used to search for records that match a specified text string.
+func (c *ToolingService) Search(sosl string, v interface{}) (err error) {
+	req, err := c.client.NewRequest("GET", "/tooling/search/?q="+url.QueryEscape(sosl), nil)
+	err = c.client.Do(req, &v)
+	return
+}

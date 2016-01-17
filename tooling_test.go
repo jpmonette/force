@@ -65,3 +65,31 @@ func TestRunTests(t *testing.T) {
 	assert.Equal(t, 1, len(result.Successes))
 	assert.Equal(t, "Tests_T", result.Successes[0].Name)
 }
+
+type SearchResponse struct {
+	DurableID  string `json:"DurableId"`
+	ID         string `json:"Id"`
+	Attributes struct {
+		Type string `json:"type"`
+		URL  string `json:"url"`
+	} `json:"attributes"`
+}
+
+func TestSearch(t *testing.T) {
+	setup()
+	defer teardown()
+
+	mux.HandleFunc("/services/data/v34.0/tooling/search/", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprint(w, `[{"attributes":{"type":"EntityDefinition","url":"/services/data/v34.0/tooling/sobjects/EntityDefinition/4ie000000000005AAA"},"Id":"4ie000000000005AAA","DurableId":"AccountContactRole"},{"attributes":{"type":"EntityDefinition","url":"/services/data/v34.0/tooling/sobjects/EntityDefinition/4ie000000000006AAA"},"Id":"4ie000000000006AAA","DurableId":"AccountCleanInfo"}]`)
+	})
+
+	var result []SearchResponse
+
+	err := client.Tooling.Search("FIND {account*} RETURNING EntityDefinition", &result)
+
+	assert.NotNil(t, result)
+	assert.Nil(t, err)
+	assert.Equal(t, 2, len(result))
+	assert.Equal(t, "AccountContactRole", result[0].DurableID)
+}

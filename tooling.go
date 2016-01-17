@@ -27,6 +27,11 @@ type ExecuteAnonymousResult struct {
 // returns the result.
 func (c *ToolingService) ExecuteAnonymous(apex string) (result ExecuteAnonymousResult, err error) {
 	req, err := c.client.NewRequest("GET", "/tooling/executeAnonymous/?anonymousBody="+url.QueryEscape(apex), nil)
+
+	if err != nil {
+		return
+	}
+
 	err = c.client.Do(req, &result)
 	return
 }
@@ -35,6 +40,11 @@ func (c *ToolingService) ExecuteAnonymous(apex string) (result ExecuteAnonymousR
 // matches the specified criteria.
 func (c *ToolingService) Query(soql string, v interface{}) (err error) {
 	req, err := c.client.NewRequest("GET", "/tooling/query/?q="+url.QueryEscape(soql), nil)
+
+	if err != nil {
+		return
+	}
+
 	err = c.client.Do(req, &v)
 	return
 }
@@ -115,6 +125,11 @@ type CodeLocation struct {
 // test execution mechanism.
 func (c *ToolingService) RunTests(classnames []string) (result RunTestsResult, err error) {
 	req, err := c.client.NewRequest("GET", "/tooling/runTestsSynchronous/?classnames="+url.QueryEscape(strings.Join(classnames, ",")), nil)
+
+	if err != nil {
+		return
+	}
+
 	err = c.client.Do(req, &result)
 	return
 }
@@ -122,6 +137,11 @@ func (c *ToolingService) RunTests(classnames []string) (result RunTestsResult, e
 // Search is used to search for records that match a specified text string.
 func (c *ToolingService) Search(sosl string, v interface{}) (err error) {
 	req, err := c.client.NewRequest("GET", "/tooling/search/?q="+url.QueryEscape(sosl), nil)
+
+	if err != nil {
+		return
+	}
+
 	err = c.client.Do(req, &v)
 	return
 }

@@ -9,7 +9,6 @@ import (
 // Query is used for retrieving query performance feedback without executing
 // the query
 func (c *Client) Query(query string, v interface{}) (err error) {
-
 	endpoint := fmt.Sprintf("/query/?q=%v", url.QueryEscape(query))
 	req, err := c.NewRequest("GET", endpoint, nil)
 
@@ -18,11 +17,6 @@ func (c *Client) Query(query string, v interface{}) (err error) {
 	}
 
 	err = c.Do(req, &v)
-
-	if err != nil {
-		return
-	}
-
 	return
 }
 
@@ -38,11 +32,6 @@ func (c *Client) QueryExplain(query string) (explain QueryExplainResponse, err e
 	}
 
 	err = c.Do(req, &explain)
-
-	if err != nil {
-		return
-	}
-
 	return
 }
 

@@ -141,20 +141,6 @@ type ErrorResponse struct {
 
 func (r *ErrorResponse) Error() string {
 	return fmt.Sprintf("%v %v: %d %v",
-		r.Response.Request.Method, sanitizeURL(r.Response.Request.URL),
+		r.Response.Request.Method, r.Response.Request.URL,
 		r.Response.StatusCode, r.Errors[0].Message)
-}
-
-// sanitizeURL redacts the client_id and client_secret tokens from the URL which
-// may be exposed to the user, specifically in the ErrorResponse error message.
-func sanitizeURL(uri *url.URL) *url.URL {
-	if uri == nil {
-		return nil
-	}
-	params := uri.Query()
-	if len(params.Get("client_secret")) > 0 {
-		params.Set("client_secret", "REDACTED")
-		uri.RawQuery = params.Encode()
-	}
-	return uri
 }

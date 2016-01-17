@@ -48,3 +48,20 @@ func TestQuery(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, "Admin", result.Records[0].FullName)
 }
+
+func TestRunTests(t *testing.T) {
+	setup()
+	defer teardown()
+
+	mux.HandleFunc("/services/data/v34.0/tooling/runTestsSynchronous/", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprint(w, `{"apexLogId":"","codeCoverage":[{"dmlInfo":[],"id":"01q20000000AmAWAA0","locationsNotCovered":[{"column":0,"line":2,"numExecutions":0,"time":-1},{"column":0,"line":5,"numExecutions":0,"time":-1},{"column":0,"line":6,"numExecutions":0,"time":-1}],"methodInfo":[],"name":"Events","namespace":"","numLocations":3,"numLocationsNotCovered":3,"soqlInfo":[],"soslInfo":[],"type":"Trigger"}],"codeCoverageWarnings":[{"id":"01q20000000AmAWAA0","message":"Test coverage of selected Apex Trigger is 0%, at least 1% test coverage is required","name":"Events","namespace":""},{"id":"01q20000000AmAWAA0","message":"Average test coverage across all Apex Classes and Triggers is 0%, at least 75% test coverage is required.","name":"","namespace":""}],"failures":[],"numFailures":0,"numTestsRun":1,"successes":[{"id":"01p20000004dwL0AAI","methodName":"test","name":"Tests_T","namespace":"","seeAllData":"","time":138}],"totalTime":140}`)
+	})
+
+	result, err := client.Tooling.RunTests([]string{"Tests_T"})
+
+	assert.NotNil(t, result)
+	assert.Nil(t, err)
+	assert.Equal(t, 1, len(result.Successes))
+	assert.Equal(t, "Tests_T", result.Successes[0].Name)
+}

@@ -26,6 +26,12 @@ Construct a new Force client, then use the various services on the client to acc
   explain, err := c.QueryExplain("SELECT Id, Name, OwnerId FROM Account LIMIT 10")
 ```
 
+To execute some anonymous Apex code, you can use the `ExecuteAnonymous` function, part of the Tooling service:
+
+```go
+c.Tooling.ExecuteAnonymous("System.debug('Hello world!');")
+```
+
 ### Authentication
 
 The force library does not directly handle authentication.  Instead, when

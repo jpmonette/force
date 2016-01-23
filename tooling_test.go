@@ -8,6 +8,23 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestDescribeGlobal(t *testing.T) {
+	setup()
+	defer teardown()
+
+	mux.HandleFunc("/services/data/v34.0/tooling/sobjects/", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprint(w, `{"encoding":"UTF-8","maxBatchSize":1,"sobjects":[{"activateable":false,"createable":true,"custom":false,"customSetting":false,"deletable":true,"deprecatedAndHidden":false,"feedEnabled":false,"keyPrefix":"01p","label":"Apex Class","labelPlural":"Apex Classes","layoutable":false,"mergeable":false,"name":"ApexClass","queryable":true,"replicateable":true,"retrieveable":true,"searchable":true,"triggerable":false,"undeletable":false,"updateable":true,"urls":{"rowTemplate":"/services/data/v34.0/tooling/sobjects/ApexClass/{ID}","describe":"/services/data/v34.0/tooling/sobjects/ApexClass/describe","sobject":"/services/data/v34.0/tooling/sobjects/ApexClass"}}]}`)
+	})
+
+	result, err := client.Tooling.DescribeGlobal()
+
+	assert.NotNil(t, result)
+	assert.Nil(t, err)
+	assert.Equal(t, 1, len(result.SObjects))
+	assert.Equal(t, "ApexClass", result.SObjects[0].Name)
+}
+
 func TestExecuteAnonymous(t *testing.T) {
 	setup()
 	defer teardown()

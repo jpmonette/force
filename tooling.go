@@ -11,6 +11,50 @@ type ToolingService struct {
 	client *Client
 }
 
+// DescribeGlobalResult represents the response of DescribeGlobal()
+type DescribeGlobalResult struct {
+	Encoding     string                        `json:"encoding"`
+	MaxBatchSize int                           `json:"maxBatchSize"`
+	SObjects     []DescribeGlobalSObjectResult `json:"sobjects"`
+}
+
+// DescribeGlobalSObjectResult represents the properties for one of the objects
+// available for your organization.
+type DescribeGlobalSObjectResult struct {
+	Activateable        bool   `json:"activateable"`
+	Createable          bool   `json:"createable"`
+	Custom              bool   `json:"custom"`
+	CustomSetting       bool   `json:"customSetting"`
+	Deletable           bool   `json:"deletable"`
+	DeprecatedAndHidden bool   `json:"deprecatedAndHidden"`
+	FeedEnabled         bool   `json:"feedEnabled"`
+	KeyPrefix           string `json:"keyPrefix"`
+	Label               string `json:"label"`
+	LabelPlural         string `json:"labelPlural"`
+	Layoutable          bool   `json:"layoutable"`
+	Mergeable           bool   `json:"mergeable"`
+	Name                string `json:"name"`
+	Queryable           bool   `json:"queryable"`
+	Replicateable       bool   `json:"replicateable"`
+	Retrieveable        bool   `json:"retrieveable"`
+	Searchable          bool   `json:"searchable"`
+	Triggerable         bool   `json:"triggerable"`
+	Undeletable         bool   `json:"undeletable"`
+	Updateable          bool   `json:"updateable"`
+}
+
+// DescribeGlobal lists the available Tooling API objects and their metadata
+func (c *ToolingService) DescribeGlobal() (result DescribeGlobalResult, err error) {
+	req, err := c.client.NewRequest("GET", "/tooling/sobjects/", nil)
+
+	if err != nil {
+		return
+	}
+
+	err = c.client.Do(req, &result)
+	return
+}
+
 // ExecuteAnonymousResult specifies information about whether or not the
 // compile and run of the code was successful
 type ExecuteAnonymousResult struct {

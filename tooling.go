@@ -133,6 +133,15 @@ type CodeCoverageWarning struct {
 	Namespace string `json:"namespace"`
 }
 
+// RunTestsAsynchronousRequest contains a sample request to the
+// runTestAsynchronous method
+type RunTestsAsynchronousRequest struct {
+	ClassIDs       string `json:"classids,omitempty"`
+	SuiteIDs       string `json:"suiteids,omitempty"`
+	MaxFailedTests string `json:"maxFailedTests,omitempty"`
+	TestLevel      string `json:"testLevel,omitempty"`
+}
+
 // RunTestFailure contains information about failures during the unit test run.
 type RunTestFailure struct {
 	Id         string  `json:"id"`
@@ -163,6 +172,24 @@ type CodeLocation struct {
 	Line          int     `json:"line"`
 	NumExecutions int     `json:"numExecutions"`
 	Time          float64 `json:"time"`
+}
+
+func (c *ToolingService) RunTestsAsynchronous(classids []string, suiteids []string, maxFailedTests string, testLevel string) (result string, err error) {
+	body := RunTestsAsynchronousRequest{
+		ClassIDs:       strings.Join(classids, ","),
+		SuiteIDs:       strings.Join(suiteids, ","),
+		MaxFailedTests: maxFailedTests,
+		TestLevel:      testLevel,
+	}
+
+	req, err := c.client.NewRequest("POST", "/tooling/runTestsAsynchronous/", body)
+
+	if err != nil {
+		return
+	}
+
+	err = c.client.Do(req, &result)
+	return
 }
 
 // RunTests executes the tests in the specified classes using the synchronous

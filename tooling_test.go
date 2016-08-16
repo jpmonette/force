@@ -83,6 +83,22 @@ func TestRunTests(t *testing.T) {
 	assert.Equal(t, "Tests_T", result.Successes[0].Name)
 }
 
+func TestRunTestsAsynchronous(t *testing.T) {
+	setup()
+	defer teardown()
+
+	mux.HandleFunc("/services/data/v37.0/tooling/runTestsAsynchronous/", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprint(w, `"707E000004Btvxf"`)
+	})
+
+	result, err := client.Tooling.RunTestsAsynchronous(nil, nil, "", "RunLocalTests")
+
+	assert.NotNil(t, result)
+	assert.Nil(t, err)
+	assert.Equal(t, "707E000004Btvxf", result)
+}
+
 type SearchResponse struct {
 	DurableID  string `json:"DurableId"`
 	ID         string `json:"Id"`

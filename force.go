@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	apiVersion = "v34.0"
+	apiVersion = "v37.0"
 	userAgent  = "github.com/jpmonette/force"
 )
 
